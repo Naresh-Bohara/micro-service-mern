@@ -33,9 +33,10 @@ module.exports.register = async (req, res) => {
     httpOnly: true,
     maxAge: 60 * 60 * 1000
 });
+    delete newUser._doc.password;
 
     res.send({
-      message: "user registered successfully!",
+    token, newUser
     });
   } catch (error) {
     res.status(500).json({
