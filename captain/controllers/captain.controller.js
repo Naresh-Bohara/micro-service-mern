@@ -107,14 +107,14 @@ module.exports.waitForNewRide = async (req, res) => {
     pendingRequests.push(res);
 };
 
-// subscribeToQueue("new-ride", (data) => {
-//     const rideData = JSON.parse(data);
+subscribeToQueue("new-ride", (data) => {
+    const rideData = JSON.parse(data);
+    console.log(data)
+    // Send the new ride data to all pending requests
+    pendingRequests.forEach(res => {
+        res.json(rideData);
+    });
 
-//     // Send the new ride data to all pending requests
-//     pendingRequests.forEach(res => {
-//         res.json(rideData);
-//     });
-
-//     // Clear the pending requests
-//     pendingRequests.length = 0;
-// });
+    // Clear the pending requests
+    pendingRequests.length = 0;
+});

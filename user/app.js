@@ -6,12 +6,14 @@ const connectDB = require("./db/db")
 connectDB();
 const userRoutes  = require("./routes/user.routes");
 const cookie = require("cookie-parser");
-
+const rabbitMq = require('./service/rabbit')
+ 
+rabbitMq.connect()
 
 app.use(express.json());
-app.use(cookie());
+app.use(cookie()); 
 app.use(express.urlencoded({extended: true}))
 
-app.use("/", userRoutes);
+app.use("/", userRoutes); 
 
 module.exports = app
