@@ -2,6 +2,7 @@ const userModel = require("../models/user.models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const blacklisttokenModel = require("../models/blacklisttoken.model");
+const { subscribeToQueue } = require("../service/rabbit");
 /**
  * @param {import("express").Request} req
  * @param {import("express").Response} res
@@ -112,7 +113,7 @@ module.exports.acceptedRide = async (req, res) => {
     }, 30000);
 }
 
-// subscribeToQueue('ride-accepted', async (msg) => {
-//     const data = JSON.parse(msg);
-//     rideEventEmitter.emit('ride-accepted', data);
-// });
+subscribeToQueue('ride-accepted', async (msg) => {
+    const data = JSON.parse(msg);
+    rideEventEmitter.emit('ride-accepted', data);
+});

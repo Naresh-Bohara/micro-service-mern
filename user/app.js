@@ -6,9 +6,9 @@ const connectDB = require("./db/db")
 connectDB();
 const userRoutes  = require("./routes/user.routes");
 const cookie = require("cookie-parser");
-const rabbitMq = require('./service/rabbit')
+// const rabbitMq = require('./service/rabbit')
  
-rabbitMq.connect()
+// rabbitMq.connect()
 
 app.use(express.json());
 app.use(cookie()); 
